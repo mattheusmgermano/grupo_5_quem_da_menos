@@ -1,2 +1,3 @@
-# grupo_5_quem_da_menos
- App desenvolvido durante Hackatek
+Application build by Group 5 on Hackatek by Poatek.
+
+July, 2021.
