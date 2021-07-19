@@ -237,7 +237,7 @@ class _BrochureViewState extends State<BrochureView> {
         barrierDismissible: false,
         builder: (context) {
           return AlertDialog(
-            title: Text("Aviso!"),
+            title: Text("Aviso:"),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[

@@ -38,7 +38,7 @@ class _BrochureDetailViewState extends State<BrochureDetailView> {
     });
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.teal[700],
+        backgroundColor: Colors.deepPurple[800],
         title: Text(brochureObject.magazaAdi + "\n" + brochureObject.timeDesc),
         actions: <Widget>[
           IconButton(

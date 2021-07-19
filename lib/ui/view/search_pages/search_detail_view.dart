@@ -36,7 +36,7 @@ class _SearchDetailViewState extends State<SearchDetailView> {
     });
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.teal[700],
+        backgroundColor: Colors.deepPurple[800],
         actions: <Widget>[
           IconButton(
               icon: new Icon(Icons.share, color: Colors.white),
