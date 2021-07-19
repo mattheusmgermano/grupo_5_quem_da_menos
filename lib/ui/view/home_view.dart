@@ -146,8 +146,14 @@ class _HomeViewState extends State<HomeView> {
 
   void _handleSearchEnd() {
     setState(() {
-      this.icon = icon;
-      this.appBarTitle = appBarTitle;
+      this.icon = new Icon(
+        Icons.search,
+        color: Colors.white,
+      );
+      this.appBarTitle = new Text(
+        "Início",
+        style: new TextStyle(color: Colors.white),
+      );
       isSearching = false;
       controller.clear();
       searchResult = [...listStore];
