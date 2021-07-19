@@ -25,7 +25,7 @@ class _HomeViewState extends State<HomeView> {
 
   String searchText = "";
   bool isSearching;
-  List searchResult = [];
+  List searchResult = [...listStore];
   List<dynamic> list;
 
   _HomeViewState() {
@@ -64,7 +64,7 @@ class _HomeViewState extends State<HomeView> {
           crossAxisSpacing: 10.0,
           mainAxisSpacing: 5.0,
           crossAxisCount: 2,
-          children: listStore.map((storeObject) {
+          children: searchResult.map((storeObject) {
             return GestureDetector(
                 child: Card(
                   color: Colors.white,
@@ -121,7 +121,8 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   decoration: new InputDecoration(
                     hintText: "Pesquise um supermercado",
-                    hintStyle: new TextStyle(color: Colors.white.withOpacity(0.7)),
+                    hintStyle:
+                        new TextStyle(color: Colors.white.withOpacity(0.7)),
                   ),
                   onChanged: searchOperation,
                 );
@@ -145,26 +146,23 @@ class _HomeViewState extends State<HomeView> {
 
   void _handleSearchEnd() {
     setState(() {
-      this.icon = new Icon(
-        Icons.search,
-        color: Colors.white,
-      );
-      this.appBarTitle = new Text(
-        "Início",
-        style: new TextStyle(color: Colors.white),
-      );
+      this.icon = icon;
+      this.appBarTitle = appBarTitle;
       isSearching = false;
       controller.clear();
+      searchResult = [...listStore];
     });
   }
 
   void searchOperation(String searchText) {
-    searchResult.clear();
-    if (isSearching != null) {
-      for (int i = 0; i < list.length; i++) {
-        String data = list[i];
-        if (data.toLowerCase().contains(searchText.toLowerCase())) {
-          searchResult.add(data);
+    if (searchText == "") { // recupera a lista de mercado caso usuário apague a pesquisa
+      searchResult = [...listStore];
+    } else {
+      searchResult.clear();
+      for (int i = 0; i < listStore.length; i++) {
+        String storeName = listStore[i].name;
+        if (storeName.toLowerCase().contains(searchText.toLowerCase())) {
+          searchResult.add(listStore[i]);
         }
       }
     }
