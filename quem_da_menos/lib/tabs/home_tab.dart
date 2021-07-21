@@ -2,11 +2,24 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:quem_da_menos/models/produto_model.dart';
+import 'package:quem_da_menos/screens/cenoura_screen.dart';
+import 'package:quem_da_menos/screens/maca_screen.dart';
+import 'package:quem_da_menos/screens/pfrango_screen.dart';
 
 class HomeTab extends StatelessWidget {
 
+
   @override
   Widget build(BuildContext context) {
+
+    var file = Produto(categoria: 'carnes', id: 1, name: 'Filé Mignon', price: 80.99, imagem: 'https://cdn.awsli.com.br/800x800/1561/1561317/produto/61075456/ac63721154.jpg');
+    var pfrango = Produto(categoria: 'carnes', id: 1, name: 'Peito de Frango', price: 17.99, imagem: 'https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/16025/medium/peito-de-frango-com-osso-resfriado-kg_18931.png');
+    var maca = Produto(categoria: 'frutas', id: 1, name: 'Maçã', price: 80.99, imagem: 'https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000');
+    var cenoura = Produto(categoria: 'verduras', id: 1, name: 'Cenoura', price: 80.99, imagem: 'https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/15131/medium/cenoura-kg_10840.jpg');
+    var parmesao = Produto(categoria: 'laticinios', id: 1, name: 'Parmesão Marca Djabo', price: 80.99, imagem: 'https://a-static.mlcdn.com.br/618x463/queijo-parmesao-scala-premium/tioaliemporioarabe/5f6e65094a27ef6dfc314927/f8b45fb0371c401666ef7851177d27cc.jpg');
+    var coca = Produto(categoria: 'bebidas', id: 1, name: 'Coca-cola 2l', price: 80.99, imagem: 'https://static.distribuidoracaue.com.br/media/catalog/product/cache/1/thumbnail/600x800/9df78eab33525d08d6e5fb8d27136e95/r/e/refrigerante-coca-cola-2-litros.jpg');
+
     Widget _buildBodyBack() => Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
@@ -24,7 +37,7 @@ class HomeTab extends StatelessWidget {
             NetworkImage(
                 'https://lh5.googleusercontent.com/p/AF1QipMe3gfkEwIl2yG8zwFTrTenTeJeunni6Ghfps-I=w1080-k-no'),
             NetworkImage(
-                'https://empresariosdesucessolive.tv/storage/noticias/November2020/xAk4ljmlqyiZw30YgcSg.jpg'),
+                'https://www.airaz.com.br/wp-content/uploads/SAPImagens/EMPREENDIMENTO3IB00100000007.jpeg'),
           ],
           dotSize: 4.0,
           dotSpacing: 15.0,
@@ -37,7 +50,7 @@ class HomeTab extends StatelessWidget {
         ),
       ),
           Divider(),
-            Row(
+            Column(
             children: <Widget>[
               SizedBox(
                 height: 100.0,
@@ -355,65 +368,101 @@ class HomeTab extends StatelessWidget {
             ]
           ),
           Divider(),
+          SizedBox(height: 20.0),
           Column(
             children: <Widget>[
               SizedBox(
                 height: 300.0,
                 width: 400.0,
                 child: ListView(
+                  physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
+                    Text("PRODUTOS POPULARES",
+                    style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Montserrat',
+                    ),
+                    textAlign: TextAlign.center),
+                    SizedBox(height: 20.0),
                     GridView.count(
                       crossAxisCount: 3,
                       physics: NeverScrollableScrollPhysics(), // to disable GridView's scrolling
                       shrinkWrap: true, // You won't see infinite size error
                       children: <Widget>[
                         Container(
-                          height: 24,
-                          color: Colors.green,
+                            width: 90.0,
+                            height: 40.0,
+                            padding: EdgeInsets.all(15.0),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: NetworkImage("https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/15131/medium/cenoura-kg_10840.jpg"),
+                                  fit: BoxFit.contain
+                              ),
+                            ),
+                            child: InkWell(
+                                onTap: (){
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context)=>CenouraScreen())
+                                  );
+                                },
+                                child: Card(
+                                  color: Colors.transparent,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                                  shadowColor: Color.fromARGB(90, 241, 230, 245),
+                                )
+                            )
                         ),
                         Container(
-                          height: 24,
-                          color: Colors.blue,
+                            width: 90.0,
+                            height: 40.0,
+                            padding: EdgeInsets.all(15.0),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: NetworkImage("https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000"),
+                                  fit: BoxFit.contain
+                              ),
+                            ),
+                            child: InkWell(
+                                onTap: (){
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context)=>MacaScreen())
+                                  );
+                                },
+                                child: Card(
+                                  color: Colors.transparent,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                                  shadowColor: Color.fromARGB(90, 241, 230, 245),)
+                            )
                         ),
                         Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
-                        ),
-                        Container(
-                          height: 24,
-                          color: Colors.blue,
+                            width: 90.0,
+                            height: 40.0,
+                            padding: EdgeInsets.all(15.0),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              image: DecorationImage(
+                                  image: NetworkImage("https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/16025/medium/peito-de-frango-com-osso-resfriado-kg_18931.png"),
+                                  fit: BoxFit.contain
+                              ),
+                            ),
+                            child: InkWell(
+                                onTap: (){
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context)=>PeitoFrangoScreen())
+                                  );
+                                },
+                                child: Card(
+                                  color: Colors.transparent,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+                                  shadowColor: Color.fromARGB(90, 241, 230, 245),
+                                  child: SizedBox(
+                                    height: 20.0,
+                                  )
+                                )
+                            )
                         ),
                       ],
                     ),
