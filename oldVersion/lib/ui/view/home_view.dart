@@ -1,0 +1,181 @@
+import 'package:flutter/material.dart';
+import 'package:grupo5/core/model/store.dart';
+import 'package:grupo5/ui/view/search_pages/search_view.dart';
+
+import 'brochure_pages/brochure_view.dart';
+
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  Widget appBarTitle = new Text(
+    "Início",
+    style: new TextStyle(color: Colors.white),
+  );
+
+  Icon icon = new Icon(
+    Icons.search,
+    color: Colors.white,
+  );
+
+  final globalKey = new GlobalKey<ScaffoldState>();
+  final TextEditingController controller = new TextEditingController();
+
+  String searchText = "";
+  bool isSearching;
+  List searchResult = [...listStore];
+  List<dynamic> list;
+
+  _HomeViewState() {
+    controller.addListener(() {
+      if (controller.text.isEmpty) {
+        setState(() {
+          isSearching = false;
+          searchText = "";
+        });
+      } else {
+        setState(() {
+          isSearching = true;
+          searchText = controller.text;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isSearching = false;
+    Store();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: globalKey,
+      appBar: buildAppBar(context),
+      backgroundColor: Colors.grey.shade100,
+      body: new Center(
+        child: GridView.count(
+          primary: false,
+          padding: EdgeInsets.all(10.0),
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 5.0,
+          crossAxisCount: 2,
+          children: searchResult.map((storeObject) {
+            return GestureDetector(
+                child: RawMaterialButton(
+                  elevation: 5.0,
+                  fillColor: Colors.white,
+
+                  child: new Container(
+                    margin: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(5.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(storeObject.url),
+                      ),
+                    ),
+                  ),
+                  padding: EdgeInsets.all(15.0),
+                  shape: CircleBorder(),
+
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              BrochureView(selectedStore: storeObject)));
+                });
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Widget buildAppBar(BuildContext context) {
+    return new AppBar(
+      backgroundColor: Colors.deepPurple[800],
+      title: appBarTitle,
+      actions: <Widget>[
+        new IconButton(
+          alignment: Alignment.centerLeft,
+          icon: icon,
+          onPressed: () {
+            setState(() {
+              if (this.icon.icon == Icons.search) {
+                this.icon = new Icon(
+                  Icons.close,
+                  color: Colors.white,
+                );
+                this.appBarTitle = new TextField(
+                  controller: controller,
+                  onSubmitted: (value) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SearchView(searchText: value)));
+                  },
+                  style: new TextStyle(
+                    color: Colors.white,
+                  ),
+                  decoration: new InputDecoration(
+                    hintText: "Pesquise um supermercado",
+                    hintStyle:
+                        new TextStyle(color: Colors.white.withOpacity(0.7)),
+                  ),
+                  onChanged: searchOperation,
+                );
+                TextFormField(textInputAction: TextInputAction.done);
+                _handleSearchStart();
+              } else {
+                _handleSearchEnd();
+              }
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  void _handleSearchStart() {
+    setState(() {
+      isSearching = true;
+    });
+  }
+
+  void _handleSearchEnd() {
+    setState(() {
+      this.icon = new Icon(
+        Icons.search,
+        color: Colors.white,
+      );
+      this.appBarTitle = new Text(
+        "Início",
+        style: new TextStyle(color: Colors.white),
+      );
+      isSearching = false;
+      controller.clear();
+      searchResult = [...listStore];
+    });
+  }
+
+  void searchOperation(String searchText) {
+    if (searchText == "") { // recupera a lista de mercado caso usuário apague a pesquisa
+      searchResult = [...listStore];
+    } else {
+      searchResult.clear();
+      for (int i = 0; i < listStore.length; i++) {
+        String storeName = listStore[i].name;
+        if (storeName.toLowerCase().contains(searchText.toLowerCase())) {
+          searchResult.add(listStore[i]);
+        }
+      }
+    }
+  }
+}
