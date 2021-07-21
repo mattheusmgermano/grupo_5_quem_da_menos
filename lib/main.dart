@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grupo5/ui/view/home_view.dart';
+import 'package:grupo5/ui/view/login.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Quem dá menos?',
-      home: HomeView(),
+      home: LoginPage(),
     );
   }
 }
