@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:quem_da_menos/staticData/userProdList.dart';
 
 class ProductsTab extends StatefulWidget {
 
@@ -15,7 +16,6 @@ class ProductsTab extends StatefulWidget {
 class _ProductsTabState extends State<ProductsTab> {
 
   final _productController = TextEditingController();
-  List _productList = [];
 
   late Map<String, dynamic> _lastRemoved;
   late int _lastRemovedIndex;
@@ -24,9 +24,9 @@ class _ProductsTabState extends State<ProductsTab> {
   @override
   void initState() {
     _readData().then((data) {
-      _productList = json.decode(data!);
+      userProductList = json.decode(data!);
       setState((){
-        _productList = json.decode(data);
+        userProductList = json.decode(data);
       });
     });
   }
@@ -37,7 +37,7 @@ class _ProductsTabState extends State<ProductsTab> {
       product["title"] = _productController.text;
       _productController.text = "";
       product["ok"] = false;
-      _productList.add(product);
+      userProductList.add(product);
     });
   }
 
@@ -72,7 +72,7 @@ class _ProductsTabState extends State<ProductsTab> {
               Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.only(top: 10.0),
-                    itemCount: _productList.length,
+                    itemCount: userProductList.length,
                     itemBuilder: (context, index){
                       return Dismissible(
                           key: Key(DateTime.now().millisecondsSinceEpoch.toString()),
@@ -86,33 +86,33 @@ class _ProductsTabState extends State<ProductsTab> {
                         direction: DismissDirection.startToEnd,
 
                         child: CheckboxListTile(
-                          title: Text(_productList[index]["title"]),
-                          value: _productList[index]["ok"],
+                          title: Text(userProductList[index]["title"]),
+                          value: userProductList[index]["ok"],
                           secondary: CircleAvatar(
-                            child: Icon(_productList[index]["ok"] ?
+                            child: Icon(userProductList[index]["ok"] ?
                             Icons.mood : Icons.error_outline),
 
                           ),
                           onChanged: (c) { setState((){
-                            _productList[index]["ok"] = c;
+                            userProductList[index]["ok"] = c;
                           }
                           );
                           },
                         ),
                         onDismissed: (direction){setState((){
-                          _lastRemoved = Map.from(_productList[index]);
+                          _lastRemoved = Map.from(userProductList[index]);
                           _lastRemovedIndex = index;
-                          _productList.removeAt(index);
+                          userProductList.removeAt(index);
                           _saveData();
 
                           final snack = SnackBar(
                             content: Text("Produto ${_lastRemoved["title"]} removido."),
                             action: SnackBarAction(label: "Desfazer", onPressed: () {
                               setState((){
-                                _productList.insert(_lastRemovedIndex, _lastRemoved);
+                                userProductList.insert(_lastRemovedIndex, _lastRemoved);
                                 _saveData();
                               });
-                              _productList.insert(_lastRemovedIndex, _lastRemoved);
+                              userProductList.insert(_lastRemovedIndex, _lastRemoved);
                               _saveData();
                             },
                             ),
@@ -134,7 +134,7 @@ class _ProductsTabState extends State<ProductsTab> {
     return File("${directory.path}/data.json");
   }
   Future<File> _saveData() async {
-    String data = json.encode(_productList);
+    String data = json.encode(userProductList);
 
     final file = await _getFile();
     return file.writeAsString(data);
