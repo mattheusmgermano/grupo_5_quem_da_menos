@@ -14,7 +14,7 @@ class _MacaScreenState extends State<MacaScreen> {
 
   var zaffari = Zaffari();
   var carrefour = Carrefour();
-  var maca = Produto(categoria: 'frutas', id: 1, name: 'Maçã', price: 80.99, imagem: 'https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000');
+  var maca = Produto(categoria: 6, id: 1, name: 'Maçã', price: 80.99, imagem: 'https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000');
 
   @override
   Widget build(BuildContext context) {

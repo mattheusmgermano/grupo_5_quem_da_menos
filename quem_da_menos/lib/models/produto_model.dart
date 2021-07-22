@@ -4,7 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 class Produto extends Model{
 
   UserModel user = UserModel();
-  String categoria;
+  int categoria;
   int id;
   String name;
   double price;
