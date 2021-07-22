@@ -77,5 +77,5 @@ Widget findLowestPrice(int productId) {
   }
 
 
-  return Text("R\$${bestMarket.produtos.firstWhere((prod) => prod.id == productId).price} em ${bestMarket.name}");
+  return Text("R\$${bestMarket.produtos.firstWhere((prod) => prod.id == productId).price}\nMenor preço em ${bestMarket.name}");
 }
