@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:quem_da_menos/models/produto_model.dart';
-import 'package:quem_da_menos/models/supermercado_model.dart';
-import 'package:quem_da_menos/screens/zaffari_screen.dart';
+import 'package:quem_da_menos/models/Category.dart';
 import 'package:quem_da_menos/staticData/marketList.dart';
 import 'package:quem_da_menos/staticData/productList.dart';
 import 'package:quem_da_menos/staticData/userProdList.dart';
 
-class MacaScreen extends StatefulWidget {
-  const MacaScreen({Key? key}) : super(key: key);
-
-  @override
-  _MacaScreenState createState() => _MacaScreenState();
-}
-
-class _MacaScreenState extends State<MacaScreen> {
-
-  var zaffari = Zaffari();
-  var carrefour = Carrefour();
-  var maca = Produto(categoria: 6, id: 1, name: 'Maçã', price: 80.99, imagem: 'https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000');
+class ZaffariCategoryScreen extends StatelessWidget {
+  final Category category;
+  const ZaffariCategoryScreen({Key? key, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Color.fromARGB(255, 94, 35, 117),
-        title: Text(maca.name),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 94, 35, 117),
+        title: Text(this.category.name),
       ),
       body: Center(
         child: GridView.count(
@@ -34,7 +24,7 @@ class _MacaScreenState extends State<MacaScreen> {
           mainAxisSpacing: 5.0,
           crossAxisCount: 2,
           children: productList
-              .where((product) => product.categoria == maca.categoria)
+              .where((product) => product.categoria == this.category.id)
               .map((product) {
             return GestureDetector(
                 child: Card(
@@ -56,7 +46,15 @@ class _MacaScreenState extends State<MacaScreen> {
                       ),
                       ListTile(
                         title: Text(product.name),
-                        subtitle: findLowestPrice(product.id),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Text("${product.price}"),
+                            FlatButton(
+                              child: Text("Corrigir preço"),
+                              onPressed: () {  },
+                            )
+                          ]
+                        ),
                       ),
                     ],
                   ),
@@ -73,6 +71,7 @@ class _MacaScreenState extends State<MacaScreen> {
     );
   }
 }
+
 Widget findLowestPrice(int productId) {
   // Filters markets that have the product in hand
   var lowestPriceMarket = marketList
@@ -85,6 +84,7 @@ Widget findLowestPrice(int productId) {
   if (lowestPriceMarket.isEmpty){
     return Text("Produto não disponível");
   }
+
 
   return Text("R\$${bestMarket.produtos.firstWhere((prod) => prod.id == productId).price}\nMenor preço em ${bestMarket.name}");
 }

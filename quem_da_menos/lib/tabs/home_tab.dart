@@ -10,6 +10,13 @@ import 'package:quem_da_menos/screens/pfrango_screen.dart';
 import 'package:quem_da_menos/staticData/categoryList.dart';
 
 class HomeTab extends StatelessWidget {
+  var maca = Produto(categoria: 6, id: 1, name: 'Maçã', price: 80.99, imagem: 'https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000');
+  var pfrango =   Produto(categoria: 3, id: 2, name: 'Peito de Frango', price: 26.99, imagem: 'https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/16025/medium/peito-de-frango-com-osso-resfriado-kg_18931.png');
+  var cenoura = Produto(categoria: 9, id: 4, name: 'Cenoura', price: 8.99, imagem: 'https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/15131/medium/cenoura-kg_10840.jpg');
+
+
+
+
   @override
   Widget build(BuildContext context) {
     Widget _buildBodyBack() => Container(
@@ -98,75 +105,90 @@ class HomeTab extends StatelessWidget {
                         NeverScrollableScrollPhysics(), // to disable GridView's scrolling
                     shrinkWrap: true, // You won't see infinite size error
                     children: <Widget>[
-                      Container(
-                          width: 90.0,
-                          height: 40.0,
-                          padding: EdgeInsets.all(15.0),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/15131/medium/cenoura-kg_10840.jpg"),
-                                fit: BoxFit.contain),
+                      GestureDetector(
+                          child: Card(
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0),
+                                  ),
+                                  child: Image.network(
+                                      pfrango.imagem,
+                                      // width: 300,
+                                      height: 65,
+                                      fit:BoxFit.contain
+                                  ),
+                                ),
+                                ListTile(
+                                  title: Text(pfrango.name, textAlign: TextAlign.center,),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => CenouraScreen()));
-                              },
-                              child: Card(
-                                color: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(999)),
-                                shadowColor: Color.fromARGB(90, 241, 230, 245),
-                              ))),
-                      Container(
-                          width: 90.0,
-                          height: 40.0,
-                          padding: EdgeInsets.all(15.0),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://superprix.vteximg.com.br/arquivos/ids/175207-600-600/Maca-Argentina--1-unidade-aprox.-200g-.png?v=636294203590200000"),
-                                fit: BoxFit.contain),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PeitoFrangoScreen()));
+                          }),
+                      GestureDetector(
+                          child: Card(
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0),
+                                  ),
+                                  child: Image.network(
+                                      cenoura.imagem,
+                                      // width: 300,
+                                      height: 65,
+                                      fit:BoxFit.contain
+                                  ),
+                                ),
+                                ListTile(
+                                  title: Text(cenoura.name, textAlign: TextAlign.center,),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => MacaScreen()));
-                              },
-                              child: Card(
-                                color: Colors.transparent,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(999)),
-                                shadowColor: Color.fromARGB(90, 241, 230, 245),
-                              ))),
-                      Container(
-                          width: 90.0,
-                          height: 40.0,
-                          padding: EdgeInsets.all(15.0),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    "https://io2.convertiez.com.br/m/superpaguemenos/shop/products/images/16025/medium/peito-de-frango-com-osso-resfriado-kg_18931.png"),
-                                fit: BoxFit.contain),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => MacaScreen()));
+                          }),
+                      GestureDetector(
+                          child: Card(
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8.0),
+                                    topRight: Radius.circular(8.0),
+                                  ),
+                                  child: Image.network(
+                                      maca.imagem,
+                                      // width: 300,
+                                      height: 65,
+                                      fit:BoxFit.contain
+                                  ),
+                                ),
+                                ListTile(
+                                  title: Text(maca.name, textAlign: TextAlign.center,),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => PeitoFrangoScreen()));
-                              },
-                              child: Card(
-                                  color: Colors.transparent,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(999)),
-                                  shadowColor:
-                                      Color.fromARGB(90, 241, 230, 245),
-                                  child: SizedBox(
-                                    height: 20.0,
-                                  )))),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => MacaScreen()));
+                          }),
                     ],
                   ),
                   // ...... other list children.

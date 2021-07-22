@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quem_da_menos/models/produto_model.dart';
 import 'package:quem_da_menos/models/supermercado_model.dart';
+import 'package:quem_da_menos/screens/carrefour_screen.dart';
+import 'package:quem_da_menos/screens/zaffari_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class SupermercadoScreen extends StatefulWidget {
@@ -29,63 +31,63 @@ class _SupermercadoScreenState extends State<SupermercadoScreen> {
           )),
           Divider(),
           SizedBox(height: 20.0,),
-          Text("${zaffari.name}",
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.bold,
-          )),
-          SizedBox(
-            width: 400.0,
-            height: 200.0,
-            child: Container(
-                width: 90.0,
-                height: 40.0,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                      image: NetworkImage("${zaffari.imagem}"),
-                      fit: BoxFit.scaleDown
-                  ),
+          GestureDetector(
+              child: Card(
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(8.0),
+                      ),
+                      child: Image.network(
+                          zaffari.imagem,
+                          // width: 300,
+                          height: 65,
+                          fit:BoxFit.contain
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(zaffari.name, textAlign: TextAlign.center,),
+                    ),
+                  ],
                 ),
-                child: InkWell(
-                    onTap: (){},
-                    child: Card(
-                      color: Colors.transparent,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
-                      shadowColor: Color.fromARGB(10, 255, 255, 255),
-                )
-            ),
-          ),
-          ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ZaffariScreen()));
+              }),
           Divider(),
-          Text("${carrefour.name}",
-          style: TextStyle(
-              fontSize: 25.0,
-          fontWeight: FontWeight.bold),),
-          SizedBox(height: 16),
-          SizedBox(
-            width: 400.0,
-            height: 200.0,
-            child: Container(
-              width: 90.0,
-              height: 40.0,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                image: DecorationImage(
-                    image: NetworkImage("${carrefour.imagem}"),
-                    fit: BoxFit.scaleDown
+          GestureDetector(
+              child: Card(
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8.0),
+                        topRight: Radius.circular(8.0),
+                      ),
+                      child: Image.network(
+                          carrefour.imagem,
+                          // width: 300,
+                          height: 65,
+                          fit:BoxFit.contain
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(carrefour.name, textAlign: TextAlign.center,),
+                    ),
+                  ],
                 ),
               ),
-              child: InkWell(
-                  onTap: (){},
-                  child: Card(
-                    color: Colors.transparent,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1)),
-                    shadowColor: Color.fromARGB(10, 255, 255, 255),
-                  )
-              ),
-            ),
-          ),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CarrefourScreen()));
+              }),
         ]
       )
     );

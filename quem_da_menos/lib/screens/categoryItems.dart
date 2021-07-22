@@ -12,6 +12,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 94, 35, 117),
         title: Text(this.category.name),
       ),
       body: Center(
@@ -40,7 +41,7 @@ class CategoryScreen extends StatelessWidget {
                             product.imagem,
                             // width: 300,
                             height: 100,
-                            fit:BoxFit.fill
+                            fit:BoxFit.contain
                         ),
                       ),
                       ListTile(
@@ -54,7 +55,7 @@ class CategoryScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("${product.name} Adicionado na Lista"),
                   ));
-                  userProductList.add({"title": product.name, "ok": true});
+                  userProductList.add({"title": product.name, "ok": false});
                 });
           }).toList(),
         ),

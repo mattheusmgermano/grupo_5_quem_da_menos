@@ -12,7 +12,7 @@ class UserModel extends Model{
   bool isLoading = false;
 
   /*MOCKS*/
-  bool userOn = true;
+  bool userOn = false;
   String name = "grupo5";
   String email = "grupo@cinco.com.br";
   String password = "grupo5";

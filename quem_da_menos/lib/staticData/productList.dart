@@ -8,3 +8,13 @@ List<Produto> productList = [
   Produto(categoria: 9, id: 5, name: 'Parmesão Marca Djabo', price: 80.99, imagem: 'https://a-static.mlcdn.com.br/618x463/queijo-parmesao-scala-premium/tioaliemporioarabe/5f6e65094a27ef6dfc314927/f8b45fb0371c401666ef7851177d27cc.jpg'),
   Produto(categoria: 2, id: 6, name: 'Coca-cola 2l', price: 80.99, imagem: 'https://static.distribuidoracaue.com.br/media/catalog/product/cache/1/thumbnail/600x800/9df78eab33525d08d6e5fb8d27136e95/r/e/refrigerante-coca-cola-2-litros.jpg'),
 ];
+
+class ListProducts {
+  String titlelist = "";
+  String definitionlist = "";
+
+  ListProducts(String titlelist, String definitionlist) {
+    this.titlelist = titlelist;
+    this.definitionlist = definitionlist;
+  }
+}
